@@ -34,14 +34,25 @@ public class Usuario {
     private boolean enable = true;
 
     private String perfil;
-    
+
+    //One refiere a usuario, quiere decir que un usuario puede tener muchos roles
+    //to Many quiere decir que un usuario puede tener muchos roles
+    ///Casacade de tipo All, cualquier operacion que afecte a usuario afectara a sus entidades
+    //relacionadas directamente, si elimino un usuario de esta tabla tambien se eliminará de las otras tablas
+    ///Fetch type Eager indica que los datos que estas pidiendo te serán mostrados de forma rápida, a diferencia de
+    ///Lazy que solo te mostrará los resultados si tu lo indicas
+    ///Mapped by indica la entidad propietaria de la relacion, en este caso indica que el usuario es el propietario de la relacion
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario")
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
 
+    
+    //Constructor vacío
     public Usuario() {
 
     }
 
+    
+    //Constructor con atributos
     public Usuario(Long id, String username, String password, String nombre, String apellido,
             String email, String telefono, boolean enable, String perfil) {
         super();
@@ -55,6 +66,8 @@ public class Usuario {
         this.perfil = perfil;
     }
 
+    
+    //Getters and Setters
     public Long getId() {
         return id;
     }
@@ -127,9 +140,11 @@ public class Usuario {
         this.perfil = perfil;
     }
 
+    
+    //Método toString
     @Override
     public String toString() {
         return "Usuario{" + "id=" + id + ", username=" + username + ", password=" + password + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono + ", enable=" + enable + ", perfil=" + perfil + '}';
     }
-    
+
 }
